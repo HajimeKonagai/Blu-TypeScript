@@ -1,0 +1,392 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+.blu { /* contains */
+	position: relative;
+
+button,
+.button
+{
+	@apply lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded items-center;
+
+	&.show   { @apply bg-blue-500 hover:bg-blue-600;     &.active { @apply bg-white border text-blue-600   border-blue-600   } }
+	&.edit   { @apply bg-indigo-500 hover:bg-indigo-600; &.active { @apply bg-white border text-indigo-600 border-indigo-600 } }
+	&.delete { @apply bg-rose-500 hover:bg-rose-600;       &.active { @apply bg-white border text-rose-600    border-rose-600    } }
+	&.dispose { @apply bg-fuchsia-500 hover:bg-fuchsia-600;       &.active { @apply bg-white border text-fuchsia-600    border-fuchsia-600    } }
+	&.restore { @apply bg-indigo-500 hover:bg-indigo-600;       &.active { @apply bg-white border text-indigo-600    border-indigo-600    } }
+	&.destroy { @apply bg-red-500 hover:bg-red-600;       &.active { @apply bg-white border text-red-600    border-red-600    } }
+}
+
+
+input[type="text"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="email"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="url"],
+input[type="password"]
+{
+	@apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm;
+}
+textarea
+{
+	@apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm;
+}
+input[type="checkbox"]
+{
+	@apply rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+}
+select
+{
+	@apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm;
+}
+
+input::placeholder
+{
+	color: #AAA;
+}
+
+div.panels
+{
+	@apply absolute w-full h-full top-0 left-0 pointer-events-none overflow-visible;
+	div.panel
+	{
+		@apply flex shadow-2xl bg-white border border-gray-100 pointer-events-auto overflow-hidden;
+		div.panel-content
+		{
+			@apply overflow-auto my-16;
+
+			margin-top: 4rem;
+			margin-bottom: 4rem;
+			height: calc(100% - 8rem);
+
+			button.close
+			{
+				@apply absolute top-0 right-0 m-3 z-10;
+			}
+			header
+			{
+				@apply px-4 py-2 shadow-sm flex cursor-move fixed  w-full h-16 flex items-center top-0;
+				height: 4rem;
+				h3
+				{
+					@apply font-bold text-xl;
+				}
+			}
+			main
+			{
+				@apply p-4 overflow-auto h-full;
+			}
+			footer
+			{
+				@apply px-4 py-2 border-t border-gray-100 bg-white flex cursor-move fixed bottom-0 w-full h-16 flex justify-end;
+				height: 4rem;
+			}
+		}
+
+		> div.no-footer:first-child
+		{
+			@apply pb-0;
+		}
+
+	}
+}
+div.modal
+{
+	@apply fixed w-full h-full top-0 left-0 flex justify-center items-center z-50;
+	background-color: rgba(0, 0, 0, 0.6);
+	div.modal-content
+	{
+		max-width: calc(100% - 5rem);
+		max-height: 80%;
+		overflow: auto;
+		width: calc(100% - 5rem);
+		height: 80%;
+		background: white;
+		button.close
+		{
+			@apply absolute top-0 right-0 m-3 z-10;
+			margin: 0.75rem 2.5rem;
+		}
+		header
+		{
+			@apply px-4 py-2 shadow-sm flex cursor-move  w-full h-16 flex items-center top-0;
+			height: 4rem;
+			h3
+			{
+				@apply font-bold text-xl;
+			}
+		}
+		main
+		{
+			@apply p-4;
+		}
+
+	}
+}
+
+nav.pagination
+{
+	@apply py-3 relative z-0 -space-x-px flex w-full justify-center;
+
+	span.pages
+	{
+		@apply flex justify-center grow;
+		span.page,
+		button.page
+		{
+			@apply bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium mx-3 rounded;
+		}
+		span.page.current
+		{
+			@apply z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium rounded;
+		}
+	}
+
+	span.prev,
+	span.next
+	{
+		@apply absolute inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer rounded;
+	}
+	span.prev
+	{
+		@apply left-0;
+	}
+	span.next
+	{
+		@apply right-0;
+	}
+	span.first,
+	span.last
+	{
+		@apply bg-white text-gray-500 hidden md:inline-flex relative items-center px-4 py-0 text-sm font-medium mx-1;
+		&:before
+		{
+			content: '...';
+		}
+	}
+}
+
+div.input-group
+{
+	@aply my-2;
+}
+div.input-field,
+div.view-field
+{
+	@apply my-4 mb-8;
+	> label
+	{
+		@apply block leading-7 text-sm text-gray-600 w-full;
+	}
+	
+	input[type="text"],
+	input[type="number"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="email"],
+	input[type="date"],
+	input[type="datetime-local"],
+	input[type="time"],
+	input[type="url"],
+	input[type="password"],
+	textarea,
+	select
+	{
+		@apply w-full mr-10;
+	}
+	span.edit
+	{
+		&:before
+		{
+		}
+		@apply text-xs text-red-500 border border-red-500 py-0 px-1 rounded;
+	}
+
+	span.view-value
+	{
+	}
+
+	span.error
+	{
+		@apply block text-sm text-red-500;
+	}
+	span.description
+	{
+		@apply block text-sm text-neutral-600;
+	}
+
+}
+
+div.bulk
+{
+	div.input-group.bulk-row
+	{
+		@apply table w-full;
+		div.input-field
+		{
+			@apply table-cell px-3 py-2 border border-gray-200 align-top;
+		}
+		button,
+		.button
+		{
+			@apply text-sm m-1;
+		}
+	}
+	div.bulk-control
+	{
+		@apply my-2;
+	}
+}
+
+div.has-one,
+div.has-many
+{
+	@apply border border-gray-200 p-2;
+}
+
+table
+{
+	@apply min-w-full divide-y divide-gray-200 border-collapse border border-gray-200;
+	thead
+	{
+		@apply bg-gray-50;
+		tr
+		{
+			th
+			{
+				@apply px-3 py-2 text-left text-sm font-medium text-gray-500 uppercase tracking-wider  border border-gray-200 align-top;
+
+				input[type="text"]
+				{
+					@apply text-sm px-1 py-1 w-full;
+				}
+			}
+		}
+	}
+	tbody
+	{
+		@apply bg-white divide-y divide-gray-200;
+		tr
+		{
+			th
+			{
+				@apply  whitespace-nowrap px-3;
+				a.button,
+				button
+				{
+					@apply text-sm m-1;
+				}
+			}
+			td
+			{
+				@apply px-3 py-2 border border-gray-200 align-top;
+			}
+		}
+	}
+}
+
+/* sample */
+	th.radio
+	{
+		min-width: 8em;
+	}
+	th.checkbox
+	{
+		min-width: 10em;
+	}
+
+div.input-field.file
+{
+	div.previews
+	{
+		img
+		{
+			max-width: 150px;
+			max-height: 150px;
+		}
+	}
+}
+
+
+/*
+ * Loading
+ */
+.loading
+{
+	text-align: center;
+
+	.loader,
+	.loader:before,
+	.loader:after
+	{
+		border-radius: 50%;
+		width: 2.5em;
+		height: 2.5em;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+		-webkit-animation: load7 1.8s infinite ease-in-out;
+		animation: load7 1.8s infinite ease-in-out;
+	}
+	.loader
+	{
+		color: #000;
+		font-size: 10px;
+		margin: 80px auto;
+		position: relative;
+		text-indent: -9999em;
+		-webkit-transform: translateZ(0);
+		-ms-transform: translateZ(0);
+		transform: translateZ(0);
+		-webkit-animation-delay: -0.16s;
+		animation-delay: -0.16s;
+	}
+	.loader:before,
+	.loader:after
+	{
+		content: '';
+		position: absolute;
+		top: 0;
+	}
+	.loader:before
+	{
+		left: -3.5em;
+		-webkit-animation-delay: -0.32s;
+		animation-delay: -0.32s;
+	}
+	.loader:after
+	{
+		left: 3.5em;
+	}
+
+}
+
+} /* .blu */
+
+@-webkit-keyframes load7
+{
+	0%,
+	80%,
+	100% {
+		box-shadow: 0 2.5em 0 -1.3em;
+	}
+	40% {
+		box-shadow: 0 2.5em 0 0;
+	}
+	}
+@keyframes load7
+{
+	0%,
+	80%,
+	100% {
+		box-shadow: 0 2.5em 0 -1.3em;
+	}
+	40% {
+		box-shadow: 0 2.5em 0 0;
+	}
+}
