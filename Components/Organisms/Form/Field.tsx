@@ -33,10 +33,10 @@ const FormField:React.VFC<Props> = (props) =>
 		/>);
 	}
 
-	return (<div className={`input-field ${name}`}>
+	return (<div className={`form-field ${name}`}>
 
 		{fieldConfig.label && (
-			<label>
+			<label className="label">
 				{fieldConfig.label}
 				{(editData && name in editData) && (<span className="edit">edit</span>)}
 			</label>

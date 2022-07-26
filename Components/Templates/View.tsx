@@ -8,7 +8,7 @@ const View = ({ config, defaultData }) =>
 	return (<div className='view'>
 		{Object.keys(config).map((name) => {
 			return (<div className={`view-field ${name}`}>
-				<label>
+				<label className="label">
 					{config[name].label}
 				</label>
 				<span className='view-value'>

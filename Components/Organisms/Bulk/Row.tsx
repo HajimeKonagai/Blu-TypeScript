@@ -34,12 +34,13 @@ const BulkRow = SortableElement(({
 		const changeValues = [];
 		args.map((arg) =>
 		{
-			const { name, value } = arg;
+			const { name, value, forceDelete } = arg;
 			const nameOrigin = originName(name);
 			changeValues.push({
 				index: bulkIndex,
 				name: nameOrigin,
 				value: value,
+				forceDelete: forceDelete,
 			});
 		});
 
@@ -57,8 +58,8 @@ const BulkRow = SortableElement(({
 	}
 
 
-	return (<div className='input-group bulk-row'>
-			<div className='input-field control'>
+	return (<div className='form-field-group bulk-row'>
+			<div className='form-field control'>
 				<BulkSortHandle />
 				{deleteRow && (
 					<button onClick={ () => deleteRow(bulkIndex) } className="delete"><icon.trash2 /></button>
@@ -66,6 +67,8 @@ const BulkRow = SortableElement(({
 			</div>
 			{Object.keys(config).map((name) =>
 			{
+				console.log('default in config[name]', config);
+				console.log('default in config[name]', name);
 				let valueDefault = '';
 				if (name in defaultValue)
 				{
@@ -73,6 +76,7 @@ const BulkRow = SortableElement(({
 				}
 				else if ('default' in config[name])
 				{
+					console.log('default in config[name]', name);
 					valueDefault = config[name]['default'];
 				}
 

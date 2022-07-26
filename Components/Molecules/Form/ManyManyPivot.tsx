@@ -37,6 +37,9 @@ const PivotForm = ({
 			delete newEditData[nameOrigin];
 		}
 
+		// TODO: force delete and args
+		
+
 		/*
 		if (pivotConfig[nameOrigin]['hook'] && pivotConfig[nameOrigin]['hook'] in formHooks)
 		{
@@ -66,7 +69,7 @@ const PivotForm = ({
 	}
 
 	return (<>
-		<div className='input-field'>
+		<div className='form-field'>
 		{Object.keys(pivotConfig).map((name) => (
 			<Field
 				name={name}
@@ -149,8 +152,8 @@ const ManyManyPivot = ({
 			const pivotEditData = editValue && (id in editValue && 'pivot' in editValue[id]) ? editValue[id]['pivot'] : undefined;
 			const checked = editValue && (id in editValue && 'attach' in editValue[id]) ? editValue[id]['attach'] == '1' : pivotDefaultData != undefined;
 
-			return (<div className='input-group'>
-				<div className='input-field'>
+			return (<div className='form-field-group'>
+				<div className='form-field'>
 					<label>
 						<Checkbox
 							name={`${fieldName}[attach]`}

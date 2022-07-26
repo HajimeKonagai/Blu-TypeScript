@@ -11,10 +11,12 @@ type Props = {
 
 const Pagination: React.VFC<Props> = ( { page, lastPage, setPage, add = 3, prev="PREV",  next="NEXT" } ) =>
 {
+	console.log({ page, lastPage, setPage, add, prev,  next});
 	const pages: number[] = [];
 	const firstPageNum = Math.max(1, page - add);
 	const lastPageNum = Math.min(lastPage, page + add + (add + (firstPageNum - page)));
 
+	
 	for (let i = firstPageNum; i <= lastPageNum; i++)
 	{
 		pages.push(i);

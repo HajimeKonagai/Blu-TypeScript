@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useGet , usePost, usePut, usePatch, useDelete } from '@/Blu/General/Api';
 import { FormContextProvider, useFormContext } from '@/Blu/Contexts/Form';
 import { ViewContextProvider, useViewContext } from '@/Blu/Contexts/View';
+import { useAppContext } from '@/Blu/Contexts/App';
 import { usePanelsContext } from '@/Blu/Contexts/Panels';
 import * as icon from '@/Blu/General/Icon';
 import Root from '@/Blu/Contexts/Root';
@@ -35,6 +36,8 @@ type Props = {
 
 	settingApi?: any;
 
+	spotEditor?: boolean;
+
 }
 
 const App:React.VFC<Props> = ({
@@ -52,9 +55,9 @@ const App:React.VFC<Props> = ({
 	restoreButtonApi = '',
 	destroyButtonApi = '',
 
-
 	settingApi = {},
 
+	spotEditor=true,
 }) =>
 {
 	const queryClient = useQueryClient();
@@ -507,9 +510,19 @@ const App:React.VFC<Props> = ({
 		},
 	};
 
-
+	const { appComponents } = useAppContext();
 
 	return (<div className='app'>
+
+		{appComponents && Object.keys(appComponents).map((acKey) => {
+			return appComponents[acKey]({
+				config          : config,
+				setting         : settingData && !settingData.isLoading ? settingData.data : false,
+				searchParams    : searchParams,
+				setSearchParams : setSearchParams,
+			})
+		})}
+
 
 		{ useStore && (<button onClick={() => openCreatePanel()}>新規作成<icon.plus /></button>) }
 
@@ -523,6 +536,7 @@ const App:React.VFC<Props> = ({
 			rowControls={rowControls}
 			searchParams={searchParams}
 			setSearchParams={setSearchParams}
+			spotEditor={spotEditor}
 		/>
 
 		{ useStore && (<button onClick={() => openCreatePanel()}>新規作成<icon.plus /></button>) }

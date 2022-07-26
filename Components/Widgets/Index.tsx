@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
+import * as icon from '@/Blu/General/Icon';
 import Loading from '@/Blu/General/Loading';
 import Pagination from '@/Blu/General/Pagination';
 import SpotEditor from '@/Blu/Components/Organisms/Index/SpotEditor';
 import { InputField } from '../Organisms/Form/Field';
+import { useIndexContext } from '@/Blu/Contexts/Index';
 
 declare var route;
 
@@ -16,6 +18,7 @@ type Props = {
 	useUpdate
 	searchParams,
 	setSearchParams,
+	spotEditor?,
 	rowControls,
 }
 
@@ -28,6 +31,7 @@ const Index:React.VFC<Props> = ({
 	useIndex,
 	useShow,
 	useUpdate,
+	spotEditor=true,
 	rowControls,
 }) =>
 {
@@ -97,6 +101,7 @@ const Index:React.VFC<Props> = ({
 		setSearchValues(newSearchValues);
 	}
 
+	const { indexComponents } = useIndexContext();
 
 	if (isLoading || !data) return <Loading message='一覧を読み込み中...' />;
 
@@ -104,7 +109,17 @@ const Index:React.VFC<Props> = ({
 
 
 	// TODO: Panels と index の分離 query が　走ると panels がサイレンだーされてしまうので
-	return (<div className='index-table'>
+	return (<div className='index'>
+
+		{indexComponents && Object.keys(indexComponents).map((icKey) => {
+			return indexComponents[icKey]({
+				data        : data,
+				isLoading   : isLoading,
+				searchValues: searchValues,
+				order       : order,
+				page        : page,
+			})
+		})}
 
 		<Pagination
 			page={data.current_page || data.meta.current_page}
@@ -121,8 +136,10 @@ const Index:React.VFC<Props> = ({
 					))}
 					{columns.map((key) => (
 					<th key={key} className={key}>
-						<span
-							className="order"
+						{config[key].label}
+						{'sort' in config[key] && config[key].sort && (
+							<button
+							className={`sort order ${order && order[0] == key ? (order[1] == 'asc' ? 'asc' : 'desc') : ''}`}
 							onClick={() => {
 								if (order && order[0] == key)
 								{
@@ -145,9 +162,13 @@ const Index:React.VFC<Props> = ({
 								}
 							}}
 						>
-							{config[key].label}
-							{order && order[0] == key ? (order[1] == 'asc' ? '↓': '↑'):''}
-						</span>
+							{order && (
+								order[0] == key ? (order[1] == 'asc' ? <icon.chevronDown />: <icon.chevronUp />):<icon.chevronsUpDown />
+							) || (
+								<icon.chevronsUpDown />
+							)}
+						</button>
+						)}
 					</th>
 					))}
 				</tr>
@@ -198,8 +219,9 @@ const Index:React.VFC<Props> = ({
 					{columns.map((key) => (
 						<td
 							className={key}
-							onDoubleClick={(e) => {
-
+							onDoubleClick={(e) =>
+							{
+								if (!spotEditor) return;
 								if (!useUpdate || config[key].type == 'raw') return;
 								
 								if (! (editing && editing.name == key && editing.id == item.id))

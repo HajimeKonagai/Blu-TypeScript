@@ -12,10 +12,10 @@ const HasMany = ({
 	return <div className='bulk'>
 	{hasManyData.map((items) => (
 		<div className='bulk-rows'>
-				<div className='input-group bulk-row'>
+				<div className='form-field-group bulk-row'>
 					{Object.keys(fieldConfig.relation).map((fieldName) => (
-						<div className={`input-field ${fieldName}`}>
-						<label>
+						<div className={`form-field ${fieldName}`}>
+						<label className="label">
 							{fieldConfig.relation[fieldName].label}
 						</label>
 						<Field

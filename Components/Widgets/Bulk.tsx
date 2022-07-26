@@ -221,6 +221,13 @@ const BulkTable:React.VFC<Props> = ({
 				delete newEditDataArr[index][name];
 			}
 
+			console.log('File arg',arg);
+			console.log('File name',name);
+			if ( 'forceDelete' in arg && arg.forceDelete)
+			{
+				delete newEditDataArr[index][name];
+			}
+			console.log('File newEditDataArr',newEditDataArr);
 
 			if (Object.keys(newEditDataArr[index]).length < 1 || (
 				Object.keys(newEditDataArr[index]).length == 1 && 'id' in newEditDataArr[index]

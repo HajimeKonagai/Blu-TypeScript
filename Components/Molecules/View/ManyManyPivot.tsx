@@ -16,13 +16,13 @@ const ManyManyPivot = ({
 
 			if (!pivotDefaultValue) return <></>;
 
-			return (<div className='input-group'>
-				<div className={`input-field option`}>
+			return (<div className='form-field-group'>
+				<div className={`form-field option`}>
 					{fieldConfig.options[id]}
 				</div>
 				
 				{Object.keys(fieldConfig['relation']).map((fieldName) => (
-				<div className={`input-field ${fieldName}`}>
+				<div className={`form-field ${fieldName}`}>
 					<Field
 						name={fieldName}
 						fieldConfig={fieldConfig.relation[fieldName]}

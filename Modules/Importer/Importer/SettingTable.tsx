@@ -67,7 +67,9 @@ const SettingTable: React.VFC<Props> = ({
 		loadSetting.data
 	)
 	{
-		settings = JSON.parse(loadSetting.data.value);
+		console.log(loadSetting.data);
+		// settings = JSON.parse(loadSetting.data);
+		settings = loadSetting.data;
 	}
 
 	const [ settingName, setSettingName ] = useState('');
