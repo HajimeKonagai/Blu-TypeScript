@@ -15,7 +15,7 @@ const Show = ({
 
 	if (isLoading || !data) return <Loading message='データを読み込み中...' />;
 
-	return (<div className="show no-footer">
+	return (<div className="show-panel no-footer">
 		<header className='panel-drag'>
 			<h3>詳細 ID: {id}</h3>
 			{close && <button className='close' onClick={close}><icon.x /></button>}
